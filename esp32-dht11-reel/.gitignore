@@ -1,0 +1,28 @@
+# Environment / Secrets
+.env
+.env.*
+.env.local
+
+# Dependencies
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Generated renders and build files (reports are kept)
+output/*
+!output/final/
+output/final/*
+!output/final/production-report.md
+remotion/public/scenes/
+remotion/out/
+
+# Blender autosave/backup
+*.blend1
+*.blend@
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/

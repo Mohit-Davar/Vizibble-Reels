@@ -1,0 +1,66 @@
+{
+  "$comment": "Single source of truth for data shared by Blender (Python) and Remotion (TypeScript). Frames are at video.fps. Scene-local frames start at 0 at the scene's start.",
+  "id": "esp32-s3-dht11",
+  "title": "How to Connect a DHT11 Sensor to an ESP32-S3",
+  "video": { "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 1350 },
+  "output": { "final": "output/final/esp32-s3-dht11-reel.mp4" },
+  "scenes": [
+    { "id": "hook",     "folder": "scene-01", "start": 0,    "duration": 120, "blender": true },
+    { "id": "hardware", "folder": "scene-02", "start": 120,  "duration": 150, "blender": true },
+    { "id": "wiring",   "folder": "scene-03", "start": 270,  "duration": 270, "blender": true },
+    { "id": "code",     "folder": "scene-04", "start": 540,  "duration": 450, "blender": false },
+    { "id": "serial",   "folder": "scene-05", "start": 990,  "duration": 210, "blender": false },
+    { "id": "final",    "folder": "scene-06", "start": 1200, "duration": 150, "blender": true }
+  ],
+  "transitionFrames": 12,
+  "hardware": {
+    "board": {
+      "name": "ESP32-S3",
+      "label": "ESP32-S3 Development Board",
+      "model": "blender/models/esp32_s3.py"
+    },
+    "sensor": {
+      "name": "DHT11",
+      "label": "DHT11 Temperature & Humidity Sensor",
+      "variant": "3-pin module (on-board pull-up)",
+      "model": "blender/models/dht11.py"
+    }
+  },
+  "wiring": [
+    {
+      "id": "vcc",
+      "from": { "part": "sensor", "pin": "VCC", "locator": "CONNECT_DHT11_VCC" },
+      "to":   { "part": "board",  "pin": "3V3", "locator": "CONNECT_ESP32_3V3" },
+      "color": "red",
+      "label": "VCC → 3V3",
+      "drawStart": 24, "drawEnd": 60
+    },
+    {
+      "id": "data",
+      "from": { "part": "sensor", "pin": "DATA", "locator": "CONNECT_DHT11_DATA" },
+      "to":   { "part": "board",  "pin": "GPIO4", "locator": "CONNECT_ESP32_GPIO4" },
+      "color": "yellow",
+      "label": "DATA → GPIO4",
+      "drawStart": 102, "drawEnd": 138
+    },
+    {
+      "id": "gnd",
+      "from": { "part": "sensor", "pin": "GND", "locator": "CONNECT_DHT11_GND" },
+      "to":   { "part": "board",  "pin": "GND", "locator": "CONNECT_ESP32_GND" },
+      "color": "black",
+      "label": "GND → GND",
+      "drawStart": 174, "drawEnd": 210
+    }
+  ],
+  "wireColors": {
+    "red":    { "render": [0.80, 0.03, 0.03], "ui": "#FF4747" },
+    "yellow": { "render": [0.95, 0.70, 0.02], "ui": "#FFC83D" },
+    "black":  { "render": [0.012, 0.012, 0.014], "ui": "#C5CCD4" }
+  },
+  "gpio": { "data": 4 },
+  "boardPinout": {
+    "$comment": "Mirror of J1_LEFT / J3_RIGHT in blender/models/esp32_s3.py (index 0 = pin 1, antenna end). blender/scenes/common.py asserts they match.",
+    "J1": ["3V3", "3V3", "RST", "4", "5", "6", "7", "15", "16", "17", "18", "8", "3", "46", "9", "10", "11", "12", "13", "14", "5V", "GND"],
+    "J3": ["GND", "TX", "RX", "1", "2", "42", "41", "40", "39", "38", "37", "36", "35", "0", "45", "48", "47", "21", "20", "19", "GND", "GND"]
+  }
+}
